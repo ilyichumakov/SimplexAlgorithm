@@ -25,5 +25,24 @@ namespace SimplexMethod
             dataTable.Rows.Add(new object[] { "Яйцо, шт.", "2", "1", "1", "1" });
             dataTable.Rows.Add(new object[] { "Прибыль, за 1 кг", "14", "12", "5", "6" });
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //double[,] data = {
+            //    {1, 1, 0, 0, 1, 0, 0, 0, 580 },
+            //    {0, 0, 1, 1, 0, 1, 0, 0, 300 },
+            //    {1, 0, 0, 1, 0, 0, 1, 0, 400 },
+            //    {2, 1, 1, 1, 0, 0, 0, 1, 1280 }
+            //};
+
+            double[,] data = {
+                {0.5, 0.5, 0, 0, 1, 0, 0, 0, 290 },
+                {0, 0, 0.5, 0.5, 0, 1, 0, 0, 150 },
+                {0.125, 0, 0, 0.125, 0, 0, 1, 0, 50 },
+                {2, 1, 1, 1, 0, 0, 0, 1, 1280 }
+            };
+            SimplexMatrix simplex = new SimplexMatrix(data);
+            simplex.ProcessMatrix();
+        }
     }
 }
