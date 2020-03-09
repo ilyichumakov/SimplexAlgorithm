@@ -27,22 +27,15 @@ namespace SimplexMethod
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            //double[,] data = {
-            //    {1, 1, 0, 0, 1, 0, 0, 0, 580 },
-            //    {0, 0, 1, 1, 0, 1, 0, 0, 300 },
-            //    {1, 0, 0, 1, 0, 0, 1, 0, 400 },
-            //    {2, 1, 1, 1, 0, 0, 0, 1, 1280 }
-            //};
-
+        {            
             double[,] data = {
                 {0.5, 0.5, 0, 0, 1, 0, 0, 0, 290 },
                 {0, 0, 0.5, 0.5, 0, 1, 0, 0, 150 },
                 {0.125, 0, 0, 0.125, 0, 0, 1, 0, 50 },
                 {2, 1, 1, 1, 0, 0, 0, 1, 1280 }
             };
-            SimplexMatrix simplex = new SimplexMatrix(data);
-            simplex.ProcessMatrix();
+            SimplexMatrix simplex = new SimplexMatrix(data, new double[]{0, 14, 12, 5, 6 });
+            simplex.ProcessMatrix(4, 4);
         }
     }
 }

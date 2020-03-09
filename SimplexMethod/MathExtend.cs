@@ -26,5 +26,27 @@ namespace SimplexMethod
         {
             return Math.Abs(a * b) / MathExtend.Nod(a, b);
         }
+
+        public static void MultipleMatrixRow(ref double[,] matrix, double k, int rowNum)
+        {
+            for (int i = 0; i <= matrix.GetUpperBound(1); i++)
+            {
+                matrix[rowNum, i] = matrix[rowNum, i] * k;
+            }
+            
+        }
+
+        public static void SumMatrixRows(ref double[,] matrix, int resourseRow, int targetRow)
+        {
+            for (int i = 0; i <= matrix.GetUpperBound(1); i++)
+            {
+                matrix[targetRow, i] += matrix[resourseRow, i];
+            }
+        }
+
+        public static void Jordan(ref double[,] matrix, int resourseRow, int resourseColumn)
+        {
+            
+        }
     }
 }
