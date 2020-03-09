@@ -26,6 +26,7 @@ namespace SimplexMethod
         {
             this.basisCount = basisCount;
             this.freeCount = freeCount;
+            
             OptimizeMatrix();
             CreateSimplex();
 
@@ -36,14 +37,15 @@ namespace SimplexMethod
             }
 
             int k = 0;
-            while(!checkBFS(target) && k < 100)
+            _tempMatrixes = new List<double[,]>() { (double[,])_matrix.Clone() };
+            while (!checkBFS(target) && k < 100)
             {
                 RowImprove(target);
                 k++;
             }
         }    
 
-        private void OptimizeMatrix()
+        private void OptimizeMatrix() // get rid of all fractions
         {
             for(int i = 0; i < _dataMatrix.GetUpperBound(0); i++)
             {                
@@ -114,9 +116,10 @@ namespace SimplexMethod
         private bool checkBFS(int targetRow)
         {
             bool res = true;
+            var matrix = _tempMatrixes.Last();
             for (int i = 1; i < basisCount + freeCount + 1; i++) // besides c0
             {
-                if (_matrix[targetRow, i] < 0)
+                if (matrix[targetRow, i] < 0)
                 {
                     res = false;                    
                 }
@@ -127,9 +130,9 @@ namespace SimplexMethod
         private void RowImprove(int target)
         {
             int col = SolvingColumn(target);
-            int row = SolvingRow(col);
+            int row = SolvingRow(col);           
 
-            double[,] tempMatrix = (double[,])_matrix.Clone(); 
+            double[,] tempMatrix = MathExtend.Copy(_tempMatrixes[_tempMatrixes.Count - 1]);
             MathExtend.Jordan(ref tempMatrix, row, col);
 
             _tempMatrixes.Add(tempMatrix);
@@ -139,13 +142,14 @@ namespace SimplexMethod
         {
             double absMax = 0;
             int absMaxIndex = 0;
+            var matrix = _tempMatrixes.Last();
             for (int i = 1; i < basisCount + freeCount + 1; i++)
             {
-                if (_matrix[target, i] < 0)
+                if (matrix[target, i] < 0)
                 {
-                    if (Math.Abs(_matrix[target, i]) > absMax)
+                    if (Math.Abs(matrix[target, i]) > absMax)
                     {
-                        absMax = -_matrix[target, i];
+                        absMax = -matrix[target, i];
                         absMaxIndex = i;
                     }
                 }
@@ -157,10 +161,11 @@ namespace SimplexMethod
         {
             double minPositive = -1;
             int minPositiveIndex = 0;
+            var matrix = _tempMatrixes.Last();
             for (int i = 0; i < freeCount; i++)
             {
-                if (_matrix[i, solvingColumn] == 0) continue;
-                double frac = _matrix[i, 0] / _matrix[i, solvingColumn];
+                if (matrix[i, solvingColumn] == 0) continue;
+                double frac = matrix[i, 0] / matrix[i, solvingColumn];
                 if (frac >= 0)
                 {
                     if (frac < minPositive || minPositive == -1)

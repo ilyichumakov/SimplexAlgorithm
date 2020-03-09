@@ -106,10 +106,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 510);
+            this.ClientSize = new System.Drawing.Size(933, 562);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataTable);
+            this.MinimumSize = new System.Drawing.Size(768, 480);
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Simplex Method";
