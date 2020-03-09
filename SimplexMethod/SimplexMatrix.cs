@@ -14,6 +14,8 @@ namespace SimplexMethod
         private int basisCount;
         private int freeCount;
 
+        private List<double[,]> _tempMatrixes;
+
         public SimplexMatrix(double[,] matrix, double[] target)
         {
             _dataMatrix = matrix;
@@ -126,6 +128,11 @@ namespace SimplexMethod
         {
             int col = SolvingColumn(target);
             int row = SolvingRow(col);
+
+            double[,] tempMatrix = (double[,])_matrix.Clone(); 
+            MathExtend.Jordan(ref tempMatrix, row, col);
+
+            _tempMatrixes.Add(tempMatrix);
         }
 
         private int SolvingColumn(int target) // search for solving column
