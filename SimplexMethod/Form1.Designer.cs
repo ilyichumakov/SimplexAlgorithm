@@ -40,6 +40,11 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputDataMode = new System.Windows.Forms.ToolStripMenuItem();
             this.ProcessDataMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgvContainer = new System.Windows.Forms.Panel();
+            this.nextMatrix = new System.Windows.Forms.Label();
+            this.prevMatrix = new System.Windows.Forms.Label();
+            this.LabelState = new System.Windows.Forms.Label();
+            this.AnswerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +96,7 @@
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(420, 305);
+            this.button1.Location = new System.Drawing.Point(418, 324);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(106, 31);
             this.button1.TabIndex = 1;
@@ -151,15 +156,92 @@
             this.ProcessDataMode.Text = "Шаги";
             this.ProcessDataMode.Click += new System.EventHandler(this.ProcessDataMode_Click);
             // 
+            // dgvContainer
+            // 
+            this.dgvContainer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dgvContainer.Location = new System.Drawing.Point(164, 59);
+            this.dgvContainer.Name = "dgvContainer";
+            this.dgvContainer.Size = new System.Drawing.Size(619, 259);
+            this.dgvContainer.TabIndex = 4;
+            // 
+            // nextMatrix
+            // 
+            this.nextMatrix.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nextMatrix.BackColor = System.Drawing.Color.PeachPuff;
+            this.nextMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nextMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.nextMatrix.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nextMatrix.Location = new System.Drawing.Point(613, 324);
+            this.nextMatrix.Name = "nextMatrix";
+            this.nextMatrix.Size = new System.Drawing.Size(170, 29);
+            this.nextMatrix.TabIndex = 2;
+            this.nextMatrix.Text = "Далее";
+            this.nextMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.nextMatrix.Visible = false;
+            this.nextMatrix.Click += new System.EventHandler(this.nextMatrix_Click);
+            // 
+            // prevMatrix
+            // 
+            this.prevMatrix.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.prevMatrix.BackColor = System.Drawing.Color.PeachPuff;
+            this.prevMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.prevMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.prevMatrix.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.prevMatrix.Location = new System.Drawing.Point(164, 326);
+            this.prevMatrix.Name = "prevMatrix";
+            this.prevMatrix.Size = new System.Drawing.Size(170, 29);
+            this.prevMatrix.TabIndex = 2;
+            this.prevMatrix.Text = "Назад";
+            this.prevMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.prevMatrix.Visible = false;
+            this.prevMatrix.Click += new System.EventHandler(this.prevMatrix_Click);
+            // 
+            // LabelState
+            // 
+            this.LabelState.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LabelState.BackColor = System.Drawing.Color.LightGreen;
+            this.LabelState.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelState.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LabelState.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelState.Location = new System.Drawing.Point(394, 24);
+            this.LabelState.Name = "LabelState";
+            this.LabelState.Size = new System.Drawing.Size(170, 29);
+            this.LabelState.TabIndex = 2;
+            this.LabelState.Text = "0";
+            this.LabelState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelState.Visible = false;
+            this.LabelState.Click += new System.EventHandler(this.prevMatrix_Click);
+            // 
+            // AnswerLabel
+            // 
+            this.AnswerLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AnswerLabel.BackColor = System.Drawing.Color.LightGreen;
+            this.AnswerLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AnswerLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AnswerLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AnswerLabel.Location = new System.Drawing.Point(389, 379);
+            this.AnswerLabel.Name = "AnswerLabel";
+            this.AnswerLabel.Size = new System.Drawing.Size(170, 29);
+            this.AnswerLabel.TabIndex = 2;
+            this.AnswerLabel.Text = "Ответ:";
+            this.AnswerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AnswerLabel.Visible = false;
+            this.AnswerLabel.Click += new System.EventHandler(this.prevMatrix_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 562);
+            this.Controls.Add(this.AnswerLabel);
+            this.Controls.Add(this.LabelState);
+            this.Controls.Add(this.prevMatrix);
+            this.Controls.Add(this.nextMatrix);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataTable);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.dgvContainer);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(768, 480);
             this.Name = "Form1";
@@ -188,6 +270,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem inputDataMode;
         private System.Windows.Forms.ToolStripMenuItem ProcessDataMode;
+        private System.Windows.Forms.Panel dgvContainer;
+        private System.Windows.Forms.Label nextMatrix;
+        private System.Windows.Forms.Label prevMatrix;
+        private System.Windows.Forms.Label LabelState;
+        private System.Windows.Forms.Label AnswerLabel;
     }
 }
 

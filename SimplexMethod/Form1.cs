@@ -19,6 +19,7 @@ namespace SimplexMethod
 
         private List<DataGridView> SimplexMatrixes;
         private List<object[]> inputData;
+        int state;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -31,23 +32,13 @@ namespace SimplexMethod
             inputData.Add(new object[] { "Прибыль, за 1 кг", "14", "12", "5", "6" });            
 
             SimplexMatrixes = new List<DataGridView>();
-            var arr = MathExtend.ListTo2DArr(inputData);
 
-            var table = this.DrawTable(arr);
-
-            addRowsFromSource(table, ref dataTable);
+            DrawInitial();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.SimplexMatrixes.Clear();
-
-            //double[,] data = {
-            //    {0.5, 0.5, 0, 0, 1, 0, 0, 0, 290 },
-            //    {0, 0, 0.5, 0.5, 0, 1, 0, 0, 150 },
-            //    {0.125, 0, 0, 0.125, 0, 0, 1, 0, 50 },
-            //    {2, 1, 1, 1, 0, 0, 0, 1, 1280 }
-            //};
 
             double[,] data = {
                 {cell(0,1), cell(0,2), cell(0,3), cell(0,4), 1, 0, 0, 0, 290 },
@@ -61,8 +52,13 @@ namespace SimplexMethod
 
             foreach(double[,] matrix in simplex.Steps)
             {
-                DrawSimplexTable(matrix, 4, 4);
-            }          
+                var table = DrawSimplexTable(matrix, 4, 4);
+                this.SimplexMatrixes.Add(table);
+            }
+
+            AnswerLabel.Text = "Ответ: ";
+            AnswerLabel.Text += simplex.Result.ToString();
+            AnswerLabel.Visible = true;
         }
 
         private double cell(int i, int j)
@@ -88,8 +84,7 @@ namespace SimplexMethod
                 }
                 table.Rows.Add(row);
             }
-
-            //this.SimplexMatrixes.Add(table);
+            
             return table;
         }
 
@@ -97,7 +92,7 @@ namespace SimplexMethod
         {
             DataGridView table = new DataGridView();
 
-            table.Columns.Add("b", "b");
+            table.Columns.Add("b", "Res");
 
             for (int i = 0; i < basisCount + freeCount; i++) // z row, basis variables
             {
@@ -115,8 +110,7 @@ namespace SimplexMethod
                 }
                 table.Rows.Add(row);
             }
-
-            //this.SimplexMatrixes.Add(table);
+            
             return table;
         }
 
@@ -135,25 +129,39 @@ namespace SimplexMethod
             }
         }
 
-        private void RedrawTables(object sender, EventArgs e)
+        private void DrawInitial()
         {
-            var ob = (ToolStripMenuItem)sender;
-            if (ob.Checked)
-            {
-                inputDataMode.Checked = false;
-                inputDataMode.Enabled = true;
-            }
+            var arr = MathExtend.ListTo2DArr(inputData);
 
-            ob.Enabled = false;
+            var table = this.DrawTable(arr);            
+
+            addRowsFromSource(table, ref dataTable);
+            dataTable.Visible = true;
+        }
+
+        private void DrawAnother(int index)
+        {
+            DataGridView source = SimplexMatrixes[index];
+            this.state = index;
+            dgvContainer.Controls.Clear();
+            dgvContainer.Controls.Add(source);
+            source.Dock = DockStyle.Fill;
+            LabelState.Text = (index + 1).ToString();
         }
 
         private void ProcessDataMode_Click(object sender, EventArgs e)
         {
             var ob = (ToolStripMenuItem)sender;
             if (ob.Checked)
-            {
+            {               
+
                 inputDataMode.Checked = false;
                 inputDataMode.Enabled = true;
+
+                if (SimplexMatrixes.Count > 0)
+                    DrawAnother(0);
+
+                setVisibility(false);
             }
 
             ob.Enabled = false;
@@ -166,9 +174,37 @@ namespace SimplexMethod
             {
                 ProcessDataMode.Checked = false;
                 ProcessDataMode.Enabled = true;
+                setVisibility(true);
             }
 
             ob.Enabled = false;
+        }
+
+        private void setVisibility(bool state)
+        {
+            dgvContainer.Visible = !state;
+            dataTable.Visible = state;
+            button1.Visible = state;
+            label1.Visible = state;
+            nextMatrix.Visible = !state;
+            prevMatrix.Visible = !state;
+            LabelState.Visible = !state;
+        }
+
+        private void nextMatrix_Click(object sender, EventArgs e)
+        {
+            if (SimplexMatrixes.Count > state + 1)
+                DrawAnother(state + 1);
+            else
+                DrawAnother(0);
+        }
+
+        private void prevMatrix_Click(object sender, EventArgs e)
+        {
+            if (0 < state)
+                DrawAnother(state - 1);
+            else
+                DrawAnother(SimplexMatrixes.Count - 1);
         }
     }
 }

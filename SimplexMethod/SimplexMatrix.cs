@@ -28,6 +28,14 @@ namespace SimplexMethod
             }
         }
 
+        public double Result
+        {
+            get
+            {
+                return this._tempMatrixes.Last()[basisCount, 0];
+            }
+        }
+
         private List<double[,]> _tempMatrixes;
 
         public SimplexMatrix(double[,] matrix, double[] target)
@@ -156,7 +164,9 @@ namespace SimplexMethod
             double[,] tempMatrix = MathExtend.Copy(_tempMatrixes[_tempMatrixes.Count - 1]);
             MathExtend.Jordan(ref tempMatrix, row, col);
 
-            _tempMatrixes.Add(tempMatrix);
+            _tempMatrixes.Add(CalcSum(tempMatrix));
+
+            //_tempMatrixes.Add(tempMatrix);
         }
 
         private int SolvingColumn(int target) // search for solving column
@@ -201,6 +211,22 @@ namespace SimplexMethod
                 throw new FormatException("При заданной системе ограничений функция z неограничена, т.е. поставленная задача линейного программирования решений не имеет");
 
             return minPositiveIndex;
+        }
+
+        private double[,] CalcSum(double[,] Matrix)
+        {
+            double sum = 0;
+            for (int i = 0; i < Matrix.GetUpperBound(0) + 1; i++)
+            {
+                sum = 0;
+                for (int j = 0; j < Matrix.GetUpperBound(1); j++)
+                {
+                    sum += Matrix[i, j];
+                }
+                Matrix[i, Matrix.GetUpperBound(1)] = sum;
+            }
+
+            return Matrix;
         }
     }
 }
