@@ -78,5 +78,27 @@ namespace SimplexMethod
                     newArray[i, j] = array[i, j];
             return newArray;
         }
+
+        public static T[,] ListTo2DArr<T>(List<T[]> list)
+        {
+            int dimension = list[0].Length;
+            T[,] arr = new T[list.Count, dimension];
+            int i = 0;
+            foreach(T[] row in list)
+            {
+                if (row.Length != dimension)
+                    throw new ArgumentOutOfRangeException("Вы подали список не представимый в виде матрицы");
+
+                int j = 0;
+                foreach(T elem in row)
+                {
+                    arr[i, j] = elem;
+                    j++;
+                }
+                i++;
+            }
+
+            return arr;
+        }
     }
 }

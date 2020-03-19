@@ -14,6 +14,20 @@ namespace SimplexMethod
         private int basisCount;
         private int freeCount;
 
+        public List<double[,]> Steps { get
+            {
+                return this._tempMatrixes;
+            }
+        }
+
+        public double[,] ResultMatrix
+        {
+            get
+            {                
+                return this._tempMatrixes.Last();
+            }
+        }
+
         private List<double[,]> _tempMatrixes;
 
         public SimplexMatrix(double[,] matrix, double[] target)
@@ -31,9 +45,10 @@ namespace SimplexMethod
             CreateSimplex();
 
             int target = freeCount;
-            if (NeedFiction())
+            bool fiction = NeedFiction();
+            if (fiction)
             {
-                target = freeCount + 1;
+                target++;
             }
 
             int k = 0;
@@ -41,8 +56,14 @@ namespace SimplexMethod
             while (!checkBFS(target) && k < 100)
             {
                 RowImprove(target);
+                if(fiction && checkBFS(target))
+                {
+                    fiction = false;
+                    target--;
+                } 
                 k++;
             }
+            
         }    
 
         private void OptimizeMatrix() // get rid of all fractions
