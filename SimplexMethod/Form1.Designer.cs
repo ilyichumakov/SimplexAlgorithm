@@ -45,6 +45,7 @@
             this.prevMatrix = new System.Windows.Forms.Label();
             this.LabelState = new System.Windows.Forms.Label();
             this.AnswerLabel = new System.Windows.Forms.Label();
+            this.OptimumPlanLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -228,11 +229,28 @@
             this.AnswerLabel.Visible = false;
             this.AnswerLabel.Click += new System.EventHandler(this.prevMatrix_Click);
             // 
+            // OptimumPlanLabel
+            // 
+            this.OptimumPlanLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.OptimumPlanLabel.AutoSize = true;
+            this.OptimumPlanLabel.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.OptimumPlanLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.OptimumPlanLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.OptimumPlanLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OptimumPlanLabel.Location = new System.Drawing.Point(389, 426);
+            this.OptimumPlanLabel.Name = "OptimumPlanLabel";
+            this.OptimumPlanLabel.Size = new System.Drawing.Size(2, 21);
+            this.OptimumPlanLabel.TabIndex = 2;
+            this.OptimumPlanLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.OptimumPlanLabel.Visible = false;
+            this.OptimumPlanLabel.Click += new System.EventHandler(this.prevMatrix_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 562);
+            this.Controls.Add(this.OptimumPlanLabel);
             this.Controls.Add(this.AnswerLabel);
             this.Controls.Add(this.LabelState);
             this.Controls.Add(this.prevMatrix);
@@ -275,6 +293,7 @@
         private System.Windows.Forms.Label prevMatrix;
         private System.Windows.Forms.Label LabelState;
         private System.Windows.Forms.Label AnswerLabel;
+        private System.Windows.Forms.Label OptimumPlanLabel;
     }
 }
 

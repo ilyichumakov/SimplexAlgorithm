@@ -14,6 +14,38 @@ namespace SimplexMethod
         private int basisCount;
         private int freeCount;
 
+        private int[] _plan; // we will store here order of variables in column
+        private int[] _allVariables;
+
+        public string Plan
+        {
+            get
+            {
+                double[,] res = ResultMatrix;
+                string plan = "";
+                for(int j = 0; j < freeCount; j++)
+                {
+                    if(res[j, 0] == 0)
+                    {
+                        continue;
+                    }
+
+                    string sign = "+ ";
+                    if (j == 0)
+                        sign = "";
+
+                    if (res[j, 0] < 0)
+                        sign = "- ";
+                    plan += sign + res[j,0] + "x" + _plan[j] + " ";
+                }
+
+                plan = plan.Substring(0, plan.Length - 1);
+
+                return plan;
+                //return this._plan;
+            }
+        }
+
         public List<double[,]> Steps { get
             {
                 return this._tempMatrixes;
@@ -93,6 +125,18 @@ namespace SimplexMethod
         private void CreateSimplex() // first simplex table filling
         {
             _matrix = new double[freeCount + 2, basisCount + freeCount + 2];
+            _plan = new int[basisCount];
+            _allVariables = new int[freeCount + basisCount];
+
+            for(int i = 0; i < basisCount; i++)
+            {
+                _plan[i] = freeCount + i + 1;
+            }
+
+            for(int i = 0; i < freeCount + basisCount; i++)
+            {
+                _allVariables[i] = i + 1;
+            }
 
             for(int i = 0; i < freeCount; i++) // first column besides c0
             {
@@ -165,6 +209,10 @@ namespace SimplexMethod
             MathExtend.Jordan(ref tempMatrix, row, col);
 
             _tempMatrixes.Add(CalcSum(tempMatrix));
+
+            int temp = _plan[row];
+            _plan[row] = _allVariables[col - 1];
+            _allVariables[col - 1] = _plan[row];
 
             //_tempMatrixes.Add(tempMatrix);
         }

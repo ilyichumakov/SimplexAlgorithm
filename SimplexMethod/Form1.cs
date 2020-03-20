@@ -58,7 +58,8 @@ namespace SimplexMethod
 
             AnswerLabel.Text = "Ответ: ";
             AnswerLabel.Text += simplex.Result.ToString();
-            AnswerLabel.Visible = true;
+            OptimumPlanLabel.Text = simplex.Plan;
+            setVisibility(true);
         }
 
         private double cell(int i, int j)
@@ -189,6 +190,8 @@ namespace SimplexMethod
             nextMatrix.Visible = !state;
             prevMatrix.Visible = !state;
             LabelState.Visible = !state;
+            OptimumPlanLabel.Visible = state;
+            AnswerLabel.Visible = state;
         }
 
         private void nextMatrix_Click(object sender, EventArgs e)
