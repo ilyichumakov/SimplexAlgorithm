@@ -147,6 +147,8 @@ namespace SimplexMethod
             dgvContainer.Controls.Clear();
             dgvContainer.Controls.Add(source);
             source.Dock = DockStyle.Fill;
+            
+            source.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             LabelState.Text = (index + 1).ToString();
         }
 
